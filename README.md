@@ -1,2 +1,2 @@
-# Course-Book-Project-SoftUni
+# Course Book
 JS Backend project @SoftUni
