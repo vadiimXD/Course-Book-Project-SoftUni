@@ -1,6 +1,6 @@
 const router = require("express").Router();
 
-const staticController=require("./controller/staticController")
+const staticController = require("./controller/staticController")
 
 //app use routes
 
@@ -11,7 +11,7 @@ router.use(staticController)
 
 //for other all
 router.all("*", (req, res) => {
-    res.send("404")
+    res.render("404", { layout: false })
 })
 
 module.exports = router
