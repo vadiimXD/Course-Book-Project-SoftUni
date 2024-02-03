@@ -36,7 +36,7 @@ app.use((req, res, next) => {
 app.use(routes)
 
 
-mongoose.connect(`mongodb://localhost:27017/movie-magic`).then(() => {
+mongoose.connect(`mongodb://localhost:27017/course-book`).then(() => {
     console.log("DB connected successfully")
     app.listen(port, () => console.log(`Server working on port ${port} :)`))
 });
