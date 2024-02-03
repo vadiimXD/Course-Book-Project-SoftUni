@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Page</title>
-    <link rel="stylesheet" href="./css/styles.css">
+    <link rel="stylesheet" href="/css/styles.css">
 </head>
 
 <body>
@@ -22,18 +22,18 @@
 
     <div class="navigation">
         <nav>
-            <img src="./images/logo.png">
+            <img src="/images/logo.png">
             <ul>
                 <!-- Guest users and Logged users -->
-                <li><a href="#">Home</a></li>
-                <li><a href="#">All Courses</a></li>
+                <li><a href="/">Home</a></li>
+                <li><a href="/courses">All Courses</a></li>
                 <!--For guest users-->
-                <li><a href="#">Login</a></li>
-                <li><a href="#">Register</a></li>
+                <li><a href="/login">Login</a></li>
+                <li><a href="/register">Register</a></li>
                 <!--For loggin users-->
-                <li><a href="#">Profile</a></li>
-                <li><a href="#">Create Course Offers</a></li>
-                <li><a href="#">Logout</a></li>
+                <li><a href="/profile">Profile</a></li>
+                <li><a href="/create">Create Course Offers</a></li>
+                <li><a href="/logout">Logout</a></li>
 
             </ul>
         </nav>
@@ -42,14 +42,14 @@
     <main>
         <div class="login-box">
             <h1>Login</h1>
-            <form action="#">
+            <form method="post">
                 <label>Email</label>
-                <input type="text" placeholder="Email.." name="">
+                <input type="text" placeholder="Email.." name="email">
                 <label>Password</label>
-                <input type="password" placeholder="Password.." name="">
+                <input type="password" placeholder="Password.." name="password">
                 <input type="submit" value="Submit">
             </form>
-            <p>Not have an account? <a href="#">Register here</a></p>
+            <p>Not have an account? <a href="/register">Register here</a></p>
         </div>
     </main>
 
