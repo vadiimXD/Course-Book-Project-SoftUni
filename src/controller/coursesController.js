@@ -2,8 +2,9 @@ const router = require("express").Router();
 const { isAuth } = require("../middlewares/authMiddlewares");
 const courseService = require("../services/courseService")
 
-router.get("/courses", (req, res) => {
-    res.render("catalog", { layout: false })
+router.get("/courses", async (req, res) => {
+    const courses = await courseService.getAllCourses().lean()
+    res.render("catalog", { layout: false, courses })
 })
 
 router.get("/create", isAuth, (req, res) => {
