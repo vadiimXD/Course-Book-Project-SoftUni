@@ -1,8 +1,9 @@
 const router = require("express").Router();
-//controller woprk with services
+const courseService = require("../services/courseService")
 
-router.get("/", (req, res) => {
-    res.render("home", { layout: false })
+router.get("/", async (req, res) => {
+    const lastCourses = await courseService.getLastCourses().lean()
+    res.render("home", { layout: false, lastCourses })
 })
 
 module.exports = router

@@ -4,11 +4,12 @@ const { SECRET } = require("../config/config")
 exports.auth = async (req, res, next) => {
 
     const token = req.cookies.token
+    //token is the name of cookie
 
     if (!token) {
         return next();
     }
-    
+
     try {
         const decodedToken = await jwt.verify(token, SECRET)
         req.user = decodedToken
@@ -24,7 +25,7 @@ exports.auth = async (req, res, next) => {
 exports.isAuth = (req, res, next) => {
 
     if (!req.user) {
-        return res.redirect("/login")
+        return res.redirect("/404")
     }
 
     next()

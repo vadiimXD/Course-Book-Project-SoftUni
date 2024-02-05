@@ -22,5 +22,11 @@ router.post("/create", isAuth, async (req, res) => {
     }
 })
 
+router.get("/details/:courseId", async (req, res) => {
+    const course = await courseService.getCurrentCourse(req.params.courseId).populate("owner").lean()
+    console.log(course)
+    res.render("details", { layout: false, course, })
+})
+
 
 module.exports = router
