@@ -23,10 +23,21 @@ router.post("/create", isAuth, async (req, res) => {
 })
 
 router.get("/details/:courseId", async (req, res) => {
-    const course = await courseService.getCurrentCourse(req.params.courseId).populate("owner").lean()
-    console.log(course)
-    res.render("details", { layout: false, course, })
+    let course = await courseService.getCurrentCourse(req.params.courseId).populate("owner").populate("singUpList").lean()
+    const isOwner = course.owner._id == req.user?.userId
+    let isSigned = courseService.signed(course.singUpList, res.locals.isAuthenticated, req.user.userId);
+    let signed = courseService.isSingUpList(course.singUpList)
+
+    res.render("details", { layout: false, course, isOwner, isSigned, signed })
 })
 
+router.get("/sign/:courseId", async (req, res) => {
+    console.log(req.params.courseId)
+    console.log(req.user)
+
+    await courseService.singUp(req.params.courseId, req.user.userId)
+
+    res.redirect(`/details/${req.params.courseId}`)
+})
 
 module.exports = router

@@ -40,4 +40,3 @@ mongoose.connect(`mongodb://localhost:27017/course-book`).then(() => {
     console.log("DB connected successfully")
     app.listen(port, () => console.log(`Server working on port http://localhost:1337/ :)`))
 });
-
