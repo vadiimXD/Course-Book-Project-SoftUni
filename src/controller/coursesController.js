@@ -40,8 +40,9 @@ router.get("/sign/:courseId", async (req, res) => {
     res.redirect(`/details/${req.params.courseId}`)
 })
 
-router.get("/edit/:courseId", (req, res) => {
-    res.render("edit", { layout: false })
+router.get("/edit/:courseId", async (req, res) => {
+    const course = await courseService.getCurrentCourse(req.params.courseId).lean();
+    res.render("edit", { layout: false, course })
 })
 
 module.exports = router
