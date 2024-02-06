@@ -45,4 +45,13 @@ router.get("/edit/:courseId", async (req, res) => {
     res.render("edit", { layout: false, course })
 })
 
+router.post("/edit/:courseId", async (req, res) => {
+    try {
+        await courseService.updateCourse(req.params.courseId, req.body)
+        res.redirect(`/details/${req.params.courseId}`)
+    } catch (error) {
+        res.render(`edit`, { layout: false, course: req.body, error: error.message })
+    }
+
+})
 module.exports = router

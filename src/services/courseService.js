@@ -32,3 +32,21 @@ exports.isSingUpList = (signUpList) => {
 
     return []
 }
+
+exports.updateCourse = (id, course) => {
+    if (!course.title || !course.type || !course.certificate || !course.image || !course.description || !course.price) {
+        throw new Error("empty fields")
+    }
+    const regex = /^https?:\/\//
+    const isValid = course.image.match(regex);
+
+    if (!isValid) {
+        throw new Error("invalid url")
+    }
+
+    if (course.price < 0) {
+        throw new Error("invalid price")
+    }
+
+    return Course.findByIdAndUpdate(id, course)
+}
