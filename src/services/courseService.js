@@ -50,3 +50,5 @@ exports.updateCourse = (id, course) => {
 
     return Course.findByIdAndUpdate(id, course)
 }
+
+exports.deleteCourse = (id) => { return Course.findByIdAndDelete(id) }

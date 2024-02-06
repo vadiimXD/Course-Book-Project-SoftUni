@@ -54,4 +54,9 @@ router.post("/edit/:courseId", async (req, res) => {
     }
 
 })
+
+router.get("/delete/:courseId", async (req, res) => {
+    await courseService.deleteCourse(req.params.courseId);
+    res.redirect("/courses")
+})
 module.exports = router
