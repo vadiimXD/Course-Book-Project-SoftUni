@@ -1,7 +1,13 @@
 const Course = require("../models/Course")
+const User = require("../models/User")
 
 
-exports.createCourse = (body) => { return Course.create(body) }
+exports.createCourse = async (body, userId) => {
+    await Course.create(body)
+    const course = await Course.findOne({ title: body.title })
+    await User.findByIdAndUpdate(userId, { $push: { createdCourses: course._id } })
+    return
+}
 
 exports.getLastCourses = () => { return Course.find().sort({ _id: -1 }).limit(3) }
 
@@ -9,7 +15,11 @@ exports.getAllCourses = () => { return Course.find() }
 
 exports.getCurrentCourse = (id) => { return Course.findById(id) }
 
-exports.singUp = async (courseId, userId) => { return Course.findByIdAndUpdate(courseId, { $push: { singUpList: userId } }) }
+exports.singUp = async (courseId, userId) => {
+    await Course.findByIdAndUpdate(courseId, { $push: { singUpList: userId } })
+    await User.findByIdAndUpdate(userId, { $push: { signUpCourses: courseId } })
+    return
+}
 
 exports.signed = (singUpList, isAuth, userId) => {
 

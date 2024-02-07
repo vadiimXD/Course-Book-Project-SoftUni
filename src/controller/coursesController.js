@@ -15,7 +15,7 @@ router.post("/create", isAuth, async (req, res) => {
     const body = req.body;
     body.owner = req.user.userId
     try {
-        await courseService.createCourse(body)
+        await courseService.createCourse(body, req.user.userId)
         res.redirect("/")
     } catch (error) {
         res.redirect("/404")
