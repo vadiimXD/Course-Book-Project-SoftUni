@@ -34,8 +34,9 @@ router.get("/logout", (req, res) => {
     res.redirect("/login")
 })
 
-router.get("/profile", (req, res) => {
-    res.render("profile", { layout: false })
+router.get("/profile", async (req, res) => {
+    const userInformation = await authService.getUserInfo(req.user.userId).populate("createdCourses").populate("signUpCourses").lean();
+    res.render("profile", { layout: false, userInformation, createdCourses: userInformation.createdCourses, signedCourses: userInformation.signUpCourses })
 })
 
 

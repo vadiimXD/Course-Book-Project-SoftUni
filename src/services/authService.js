@@ -42,3 +42,5 @@ exports.loginUser = async (body) => {
     const token = await this.createToken(user._id);
     return token
 }
+
+exports.getUserInfo = (id) => { return User.findById(id) }
