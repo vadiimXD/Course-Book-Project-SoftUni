@@ -59,4 +59,5 @@ router.get("/delete/:courseId", async (req, res) => {
     await courseService.deleteCourse(req.params.courseId);
     res.redirect("/courses")
 })
+
 module.exports = router

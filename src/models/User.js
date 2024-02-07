@@ -13,7 +13,15 @@ const userSchema = new mongoose.Schema({
     password: {
         type: String,
         required: true
-    }
+    },
+    createdCourses: [{
+        type: mongoose.Types.ObjectId,
+        ref: "Course"
+    }],
+    signUpCourses: [{
+        type: mongoose.Types.ObjectId,
+        ref: "Course"
+    }]
 })
 
 
