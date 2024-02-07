@@ -34,6 +34,9 @@ router.get("/logout", (req, res) => {
     res.redirect("/login")
 })
 
+router.get("/profile", (req, res) => {
+    res.render("profile", { layout: false })
+})
 
 
 
