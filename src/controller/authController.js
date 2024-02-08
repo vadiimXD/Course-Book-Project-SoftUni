@@ -1,5 +1,6 @@
 const router = require("express").Router();
-const authService = require("../services/authService")
+const authService = require("../services/authService");
+const { getErrorMessage } = require("../utils/errorUtils");
 
 router.get("/register", (req, res) => {
     res.render("register", { layout: false })
@@ -10,8 +11,8 @@ router.post("/register", async (req, res) => {
         await authService.registerUser(req.body.email, req.body.password, req.body)
         res.redirect("/login")
     } catch (error) {
-        console.log(error)
-        res.redirect("/404")
+        let errorMess = getErrorMessage(error)
+        res.render(`404`, { layout: false, error: errorMess })
     }
 })
 
@@ -25,7 +26,8 @@ router.post("/login", async (req, res) => {
         res.cookie("token", token)
         res.redirect("/")
     } catch (error) {
-        res.redirect("/404")
+        let errorMess = getErrorMessage(error)
+        res.render(`404`, { layout: false, error: errorMess })
     }
 })
 
@@ -35,8 +37,13 @@ router.get("/logout", (req, res) => {
 })
 
 router.get("/profile", async (req, res) => {
-    const userInformation = await authService.getUserInfo(req.user.userId).populate("createdCourses").populate("signUpCourses").lean();
-    res.render("profile", { layout: false, userInformation, createdCourses: userInformation.createdCourses, signedCourses: userInformation.signUpCourses })
+    try {
+        const userInformation = await authService.getUserInfo(req.user.userId).populate("createdCourses").populate("signUpCourses").lean();
+        res.render("profile", { layout: false, userInformation, createdCourses: userInformation.createdCourses, signedCourses: userInformation.signUpCourses })
+    } catch (error) {
+        let errorMess = getErrorMessage(error)
+        res.render(`404`, { layout: false, error: errorMess })
+    }
 })
 
 
