@@ -12,7 +12,7 @@ router.post("/register", async (req, res) => {
         res.redirect("/login")
     } catch (error) {
         let errorMess = getErrorMessage(error)
-        res.render(`404`, { layout: false, error: errorMess })
+        res.render(`register`, { layout: false, error: errorMess })
     }
 })
 
@@ -27,7 +27,7 @@ router.post("/login", async (req, res) => {
         res.redirect("/")
     } catch (error) {
         let errorMess = getErrorMessage(error)
-        res.render(`404`, { layout: false, error: errorMess })
+        res.render(`login`, { layout: false, error: errorMess })
     }
 })
 
