@@ -44,7 +44,7 @@ router.get("/details/:courseId", async (req, res) => {
     }
 })
 
-router.get("/sign/:courseId", async (req, res) => {
+router.get("/sign/:courseId", isAuth, async (req, res) => {
     try {
         await courseService.singUp(req.params.courseId, req.user.userId)
         res.redirect(`/details/${req.params.courseId}`)
@@ -54,7 +54,7 @@ router.get("/sign/:courseId", async (req, res) => {
     }
 })
 
-router.get("/edit/:courseId", async (req, res) => {
+router.get("/edit/:courseId", isAuth, async (req, res) => {
     try {
         const course = await courseService.getCurrentCourse(req.params.courseId).lean();
         res.render("edit", { layout: false, course })
@@ -64,7 +64,7 @@ router.get("/edit/:courseId", async (req, res) => {
     }
 })
 
-router.post("/edit/:courseId", async (req, res) => {
+router.post("/edit/:courseId", isAuth, async (req, res) => {
     try {
         await courseService.updateCourse(req.params.courseId, req.body)
         res.redirect(`/details/${req.params.courseId}`)
@@ -74,7 +74,7 @@ router.post("/edit/:courseId", async (req, res) => {
     }
 })
 
-router.get("/delete/:courseId", async (req, res) => {
+router.get("/delete/:courseId", isAuth, async (req, res) => {
     try {
         await courseService.deleteCourse(req.params.courseId);
         res.redirect("/courses")

@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const { isAuth } = require("../middlewares/authMiddlewares");
 const authService = require("../services/authService");
 const { getErrorMessage } = require("../utils/errorUtils");
 
@@ -31,12 +32,12 @@ router.post("/login", async (req, res) => {
     }
 })
 
-router.get("/logout", (req, res) => {
+router.get("/logout", isAuth, (req, res) => {
     res.clearCookie("token");
     res.redirect("/login")
 })
 
-router.get("/profile", async (req, res) => {
+router.get("/profile", isAuth, async (req, res) => {
     try {
         const userInformation = await authService.getUserInfo(req.user.userId).populate("createdCourses").populate("signUpCourses").lean();
         res.render("profile", { layout: false, userInformation, createdCourses: userInformation.createdCourses, signedCourses: userInformation.signUpCourses })
